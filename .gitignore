@@ -1,0 +1,6 @@
+/package-lock.json
+/node_modules
+/contracts/*
+/build/*
+.DS_Store
+/bin/*
