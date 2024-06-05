@@ -11,7 +11,8 @@
     "build_js2bc": "wasmtime --dir=$(pwd)::/ bin/qjsc.wasm  -c -o build/sample.bc build/sample.js",
     "build_bc2hex": "cat build/sample.bc | tr -d '\n' | grep -Eo '\\{[^}]+\\}' | grep -Eo '0x[a-fA-F0-9]+' | sed -e 's/0x//g' | tr -d '\n' | xxd -r -p > build/sample.bin",
     "build": "npm run build_ts2js && npm run build_cleanjs && npm run build_js2bc && npm run build_bc2hex",
-    "deploy": "node scripts/deploy-hook.mjs"
+    "deploy": "node scripts/deploy-hook.mjs && npm run advance && npm run advance",
+    "advance": "curl -X POST --data '{\"method\":\"ledger_accept\"}' localhost:9005"
   },
   "author": "Wietse Wind",
   "license": "MIT",
