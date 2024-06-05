@@ -1,37 +1,33 @@
-import {
-  getState,
-  setState,
-  log,
-  AnyJson,
-} from '@xahau/hooks'
-
-import { sampleIncludeEmitter } from './sample-include'
+import { getState, setState, log, AnyJson, } from '@xahau/hooks'
+import { sampleIncludeEmitter, } from './sample-include'
 
 export const Hook: Hook = (tx) => {
-  // TX Type causing this Hook to run
-  console.log('otxn_type', otxn_type())
-  // TX Hash causing this Hook to run
-  console.log('otxn_id', otxn_id(0))
+
+  // Console.log mapped to log as well, see Xahaud node Trace output
+  
+  console.log('otxn_type', otxn_type())   // TX Type causing this Hook to run
+  console.log('otxn_id', otxn_id(0))      // TX Hash causing this Hook to run
 
   try {  
     log('Triggering TX', tx)
-    log('localstorage set name',              setState('name', 'Wietse'))
-    log('localstorage set age',               setState('age', 36))
-    log('localstorage set pets',              setState('pets', ['Evi', 'Pepper']))
-    log('localstorage set isFemale',          setState('isFemale', false))
-    log('localstorage set someObject',        setState('someObject', { wife: 'Nienke', kids: [ 'Arwèn', 'Quinn' ] }))
+    log('state set name',              setState('name', 'Wietse'))
+    log('state set age',               setState('age', 36))
+    log('state set pets',              setState('pets', ['Evi', 'Pepper']))
+    log('state set isFemale',          setState('isFemale', false))
+    log('state set someObject',        setState('someObject', { wife: 'Nienke', kids: [ 'Arwèn', 'Quinn' ] }))
 
-    log('localstorage get name',              getState('name'))
-    log('localstorage get age',               getState('age'))
-    log('Hook State get pets',                (getState('pets') as unknown as string[])?.[0])
-    log('localstorage get isFemale',          getState('isFemale'))
-    log('localstorage get someObject',        getState('someObject'))
-    log('localstorage get someObject.kids',   (getState('someObject') as AnyJson)?.kids)
+    log('state get name',              getState('name'))
+    log('state get age',               getState('age'))
+    log('state get pets',                (getState('pets') as unknown as string[])?.[0])
+    log('state get isFemale',          getState('isFemale'))
+    log('state get someObject',        getState('someObject'))
+    log('state get someObject.kids',   (getState('someObject') as AnyJson)?.kids)
 
+    // This will emit a transaction, but for demo purposes: this lives in an external (import) file
     sampleIncludeEmitter()
 
   } catch (e) {
-    log('-------------- ERR', (e as Error).message)
+    log('ERR', (e as Error).message)
     return accept('Sample Hook (End of Hook with Error)', 987)
   }
   
