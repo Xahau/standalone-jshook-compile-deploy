@@ -1,16 +1,13 @@
 import {
-  enableEmit,
   getState,
   setState,
-  prepareEmit,
-  doEmit,
   log,
   AnyJson,
 } from '@xahau/hooks'
 
-export const Hook: Hook = (tx) => {
-  enableEmit(10)
+import { sampleIncludeEmitter } from './sample-include'
 
+export const Hook: Hook = (tx) => {
   // TX Type causing this Hook to run
   console.log('otxn_type', otxn_type())
   // TX Hash causing this Hook to run
@@ -31,21 +28,7 @@ export const Hook: Hook = (tx) => {
     log('localstorage get someObject',        getState('someObject'))
     log('localstorage get someObject.kids',   (getState('someObject') as AnyJson)?.kids)
 
-    const prepared = prepareEmit({
-      TransactionType: 'Payment',
-      Amount: '3000000',
-      Memos: [{
-        Memo: {
-          MemoType: 'DEAD',
-          MemoData: 'BEEF'
-        }
-      }],
-      Destination: 'rwietsevLFg8XSmG3bEZzFein1g8RBqWDZ',
-    })
-
-    log('Prepared TX', prepared)
-
-    log('Emitted', doEmit(prepared))
+    sampleIncludeEmitter()
 
   } catch (e) {
     log('-------------- ERR', (e as Error).message)
