@@ -18,7 +18,7 @@ export const Hook: Hook = (tx) => {
 
     log('state get name',              getState('name'))
     log('state get age',               getState('age'))
-    log('state get pets',                (getState('pets') as unknown as string[])?.[0])
+    log('state get pets',              (getState('pets') as unknown as string[])?.[0])
     log('state get isFemale',          getState('isFemale'))
     log('state get someObject',        getState('someObject'))
     log('state get someObject.kids',   (getState('someObject') as AnyJson)?.kids)
