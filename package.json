@@ -6,7 +6,7 @@
   "scripts": {
     "getwasm": "curl https://wasm.xahau.tech/qjsc.wasm > bin/qjsc.wasm",
     "clean": "rm build/*",
-    "build_ts2js": "esbuild --bundle --platform=node --tree-shaking=true --format=esm --target=es2017 contracts/sample.ts > build/sample.dirty.js",
+    "build_ts2js": "esbuild --bundle --platform=node --tree-shaking=true --format=esm --target=es2017 src/sample.ts > build/sample.dirty.js",
     "build_cleanjs": "cat build/sample.dirty.js | grep -v -E 'Object.defineProperty.+exports.+__esModule' | grep -v -E '^exports\\..+=.+' | perl -0777pe 's/export .*?{[^}]+}/\\/\\/ Exports were here/sg' | sed 's/var Hook =/var __Hook =/g' | sed 's/var Callback =/var __Callback =/g' > temp.js && echo 'var Hook = (reserved) => __Hook(otxn_json(), reserved)' >> temp.js && echo 'var Callback = (code) => __Callback(otxn_json(), code)' >> temp.js && echo '' >> temp.js && mv temp.js build/sample.js; rm build/sample.dirty.js",
     "build_js2bc": "wasmtime --dir=$(pwd)::/ bin/qjsc.wasm  -c -o build/sample.bc build/sample.js",
     "build_bc2hex": "cat build/sample.bc | tr -d '\n' | grep -Eo '\\{[^}]+\\}' | grep -Eo '0x[a-fA-F0-9]+' | sed -e 's/0x//g' | tr -d '\n' | xxd -r -p > build/sample.bin",

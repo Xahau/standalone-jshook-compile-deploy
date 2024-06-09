@@ -17,6 +17,6 @@ This is not a toolkit, this is an reference implementation of the build steps fo
 
 ##### Code
 
-3. Write a HooksJS contract, e.g. `contracts/sample.ts`
+3. Write a HooksJS contract, e.g. `src/sample.ts`
 4. Build, `npm run build` (configured to build `sample.ts`)
 5. Deploy, run `npm run deploy` (configured to deploy `sample.ts`)
