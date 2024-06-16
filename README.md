@@ -13,7 +13,7 @@ This is not a toolkit, this is an reference implementation of the build steps fo
 
 ##### Prepare
 1. `npm install`
-2. `npm getwasm`
+2. `npm run getwasm`
 
 ##### Code
 
